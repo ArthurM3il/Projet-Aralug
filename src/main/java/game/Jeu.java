@@ -89,6 +89,7 @@ public class Jeu extends Application {
             if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
                 score += calculScore();
+                System.out.println(score);
             }else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.STOPPED){
                 Score scoreWindow = new Score(score);
                 Stage stage = new Stage();

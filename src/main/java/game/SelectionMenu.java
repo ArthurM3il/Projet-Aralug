@@ -22,7 +22,7 @@ public class SelectionMenu extends Application {
 
     private final Utils utils = new Utils();
 
-    private AtomicInteger indexMenu;
+    private int indexMenu;
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,10 +34,10 @@ public class SelectionMenu extends Application {
         ArrayList<Music> musiques = new ArrayList<>();
         musiques.add(Music.DP_INSTANTCRUSH);
         musiques.add(Music.JUL_LAZONE);
-        indexMenu = new AtomicInteger();
+        indexMenu = 0;
         // Création du texte
-        AtomicReference<String> message = new AtomicReference<>(musiques.get(indexMenu.get()).getTitre());
-        Text text = new Text(message.get());
+        String message = new String(musiques.get(indexMenu).getTitre());
+        Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
         text.setFill(Color.YELLOW);
@@ -70,44 +70,44 @@ public class SelectionMenu extends Application {
 
         //Initialisation du lecteur de texte SI_VOX
         LecteurTexte lecteur = new LecteurTexte();
-        lecteur.setTexte(message.get());
+        lecteur.setTexte(message);
 
         primaryStage.setOnShown(windowEvent -> lecteur.play());
 
-        Music musiqueChoisis = musiques.get(indexMenu.get());
+
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
-                Jeu jeu = new Jeu(musiqueChoisis);
+                Jeu jeu = new Jeu(musiques.get(indexMenu));
                 Stage stage = new Stage();
                 jeu.start(stage);
                 primaryStage.close();
                 System.out.println("Début du jeu !");
             } else if (event.getCode().equals(KeyCode.RIGHT)){
-                changerMusique(1, indexMenu, musiques, text, message, lecteur);
+                changerMusique(1, musiques, text, message, lecteur);
             } else if (event.getCode().equals(KeyCode.LEFT)) {
-                changerMusique(0, indexMenu, musiques, text, message, lecteur);
+                changerMusique(0, musiques, text, message, lecteur);
             } else {
                 lecteur.play();
             }
         });
     }
 
-    public void changerMusique(int changement, AtomicInteger indexMenu, ArrayList<Music> musiques, Text text, AtomicReference<String> message, LecteurTexte lecteur) {
+    public void changerMusique(int changement, ArrayList<Music> musiques, Text text, String message, LecteurTexte lecteur) {
         if (changement == 1) {
-            this.indexMenu.getAndIncrement();
+            this.indexMenu++;
         } else if (changement == 0) {
-            this.indexMenu.getAndDecrement();
+            this.indexMenu--;
         }
-        if (indexMenu.get() >= musiques.size()) {
-            indexMenu.set(0);
-        } else if (indexMenu.get() < 0) {
-            indexMenu.set(musiques.size());
+        if (indexMenu >= musiques.size()) {
+            this.indexMenu = 0;
+        } else if (indexMenu < 0) {
+            this.indexMenu = musiques.size();
         }
-        message.set(musiques.get(indexMenu.get()).getTitre());
-        lecteur.setTexte(message.get());
-        text.setText(message.get());
+        message = musiques.get(this.indexMenu).getTitre();
+        lecteur.setTexte(message);
+        text.setText(message);
         lecteur.play();
-        MusicPlayer.loadMusic(musiques.get(indexMenu.get()).getPath());
+        MusicPlayer.loadMusic(musiques.get(this.indexMenu).getPath());
     }
 }
