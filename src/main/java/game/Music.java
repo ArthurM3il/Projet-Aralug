@@ -1,7 +1,7 @@
 package game;
 
 public enum Music {
-    DP_INSTANTCRUSH("Daft Punk - Instant Crush",110,"assets/musics/DaftPunkInstantCrush.wav"),
+    DP_INSTANTCRUSH("Daft Punk - Instant Crush",110,"assets/musics/DaftPunkInstantCrush.aiff"),
     JUL_LAZONE("Jul - J'fais plaisir à la zone",133,"assets/musics/JulLaZone.wav");
 
     public int getBpm() {
