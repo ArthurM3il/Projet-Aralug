@@ -6,11 +6,13 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import t2s.Main;
 import utils.MusicPlayer;
 import utils.Utils;
 
@@ -27,16 +29,26 @@ public class Jeu extends Application {
     private long startTimeReferenceCircle = 0;
     private long startTimePlayerCircle = 0;
     private static double score;
+
+    private static int erreurCumulees = 0;
+
+    private static int difficulte;
+
     private static Stage primaryStage;
     private static Thread musicThread;
-    public Jeu(Music music) {
+    public Jeu(Music music, int difficulte) {
         this.music = music;
+        if (difficulte == 3) {
+            this.difficulte = Integer.MAX_VALUE;
+        } else {
+            this.difficulte = difficulte * 5;
+        }
     }
 
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();
-        score =0;
+        score = 0;
 
         //Récupération de la taille de l'écran
         Rectangle2D screenSize = utils.getScreenSize();
@@ -86,7 +98,9 @@ public class Jeu extends Application {
 
         // Mettre à jour le deuxième cercle lorsqu'on appuie sur la barre d'espace
         root.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
+            if (erreurCumulees >= difficulte) {
+                defaite();
+            } else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
                 score += calculScore();
                 System.out.println(score);
@@ -99,6 +113,8 @@ public class Jeu extends Application {
                     throw new RuntimeException(e);
                 }
                 primaryStage.close();
+            } else if (event.getCode().equals(KeyCode.ESCAPE)) {
+                defaite();
             }
         });
 
@@ -147,10 +163,24 @@ public class Jeu extends Application {
 
     public double calculScore(){
         if(getDifference() <= 100){
+            erreurCumulees = 0;
             return 10.0;
         }else{
+            erreurCumulees++;
             return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ music.getBpm())) + 12.24);
         }
+    }
+
+    public void defaite() {
+        MusicPlayer.stopMusic();
+        Score scoreWindow = new Score(score);
+        Stage stage = new Stage();
+        try {
+            scoreWindow.start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        primaryStage.close();
     }
 
 }

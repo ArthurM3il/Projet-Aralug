@@ -11,32 +11,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import t2s.son.LecteurTexte;
-import utils.MusicPlayer;
 import utils.Utils;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class SelectionMenu extends Application {
-
+public class SelectionDifficulte extends Application {
     private final Utils utils = new Utils();
 
-    private int indexMenu;
+    private static int difficulte = 1;
 
-    @Override
+    private static Music music;
+
+    public SelectionDifficulte(Music music) {
+        this.music = music;
+    }
     public void start(Stage primaryStage) {
         //Récupération de la taille de l'écran
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
 
-        ArrayList<Music> musiques = new ArrayList<>();
-        musiques.add(Music.DP_INSTANTCRUSH);
-        musiques.add(Music.JUL_LAZONE);
-        indexMenu = 0;
         // Création du texte
-        String message = new String(musiques.get(indexMenu).getTitre());
+        String message = new String("Difficulté facile");
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -65,7 +61,7 @@ public class SelectionMenu extends Application {
         scene.heightProperty().addListener((obs, oldVal, newVal) -> utils.updateAndCenterText(text, scene));
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Sélection musique");
+        primaryStage.setTitle("Sélection difficulté");
         primaryStage.show();
 
         //Initialisation du lecteur de texte SI_VOX
@@ -78,33 +74,37 @@ public class SelectionMenu extends Application {
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
-                SelectionDifficulte selectionDifficulte = new SelectionDifficulte(musiques.get(indexMenu));
+                Jeu jeu = new Jeu(music, difficulte);
                 Stage stage = new Stage();
-                selectionDifficulte.start(stage);
+                jeu.start(stage);
                 primaryStage.close();
                 System.out.println("Début du jeu !");
             } else if (event.getCode().equals(KeyCode.RIGHT)){
-                changerMusique(1, musiques, text, message, lecteur);
+                changerDiffuculte(1, text, message, lecteur);
             } else if (event.getCode().equals(KeyCode.LEFT)) {
-                changerMusique(0, musiques, text, message, lecteur);
-            } else {
-                lecteur.play();
+                changerDiffuculte(0, text, message, lecteur);
             }
         });
     }
 
-    public void changerMusique(int changement, ArrayList<Music> musiques, Text text, String message, LecteurTexte lecteur) {
+    public void changerDiffuculte(int changement, Text text, String message, LecteurTexte lecteur) {
         if (changement == 1) {
-            this.indexMenu++;
+            this.difficulte--;
         } else if (changement == 0) {
-            this.indexMenu--;
+            this.difficulte++;
         }
-        if (indexMenu >= musiques.size()) {
-            this.indexMenu = 0;
-        } else if (indexMenu < 0) {
-            this.indexMenu = musiques.size();
+        if (difficulte > 3) {
+            this.difficulte = 0;
+        } else if (difficulte < 1) {
+            this.difficulte = 3;
         }
-        message = musiques.get(this.indexMenu).getTitre();
+        if (difficulte == 1) {
+            message = "Difficulté difficile";
+        } else if (difficulte == 2) {
+            message = "Difficulté moyen";
+        } else if (difficulte == 3) {
+            message = "Difficulté facile";
+        }
         text.setText(message);
         lecteur.setTexte(message);
         lecteur.play();
