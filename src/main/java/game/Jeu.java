@@ -38,18 +38,14 @@ public class Jeu extends Application {
     private static Thread musicThread;
     public Jeu(Music music, int difficulte) {
         this.music = music;
-        if (difficulte == 0) {
-            this.difficulte = Integer.MAX_VALUE;
-        } else {
-            this.difficulte = difficulte * 5;
-        }
+        this.difficulte = difficulte;
     }
 
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();
         score = 0;
-
+        erreurCumulees = 0;
         //Récupération de la taille de l'écran
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();

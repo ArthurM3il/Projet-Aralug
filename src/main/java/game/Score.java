@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -67,5 +68,13 @@ public class Score extends Application {
 
         primaryStage.setOnShown(windowEvent -> lecteur.play());
 
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.SPACE)) {
+                MainMenu mainMenu = new MainMenu();
+                Stage stage = new Stage();
+                mainMenu.start(stage);
+                primaryStage.close();
+            }
+        });
     }
 }

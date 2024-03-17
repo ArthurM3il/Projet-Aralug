@@ -26,6 +26,8 @@ public class SelectionMenu extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        indexMenu = 0;
+
         //Récupération de la taille de l'écran
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();
@@ -34,7 +36,6 @@ public class SelectionMenu extends Application {
         ArrayList<Music> musiques = new ArrayList<>();
         musiques.add(Music.DP_INSTANTCRUSH);
         musiques.add(Music.JUL_LAZONE);
-        indexMenu = 0;
         // Création du texte
         String message = new String(musiques.get(indexMenu).getTitre());
         Text text = new Text(message);
@@ -82,7 +83,6 @@ public class SelectionMenu extends Application {
                 Stage stage = new Stage();
                 selectionDifficulte.start(stage);
                 primaryStage.close();
-                System.out.println("Début du jeu !");
             } else if (event.getCode().equals(KeyCode.RIGHT)){
                 changerMusique(1, musiques, text, message, lecteur);
             } else if (event.getCode().equals(KeyCode.LEFT)) {

@@ -72,7 +72,6 @@ public class MainMenu extends Application {
                 Stage stage = new Stage();
                 menuSelection.start(stage);
                 primaryStage.close();
-                System.out.println("Début du jeu !");
             }else lecteur.play();
 
         });
