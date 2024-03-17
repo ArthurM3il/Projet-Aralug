@@ -38,7 +38,7 @@ public class Jeu extends Application {
     private static Thread musicThread;
     public Jeu(Music music, int difficulte) {
         this.music = music;
-        if (difficulte == 3) {
+        if (difficulte == 0) {
             this.difficulte = Integer.MAX_VALUE;
         } else {
             this.difficulte = difficulte * 5;
@@ -103,7 +103,7 @@ public class Jeu extends Application {
             } else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
                 score += calculScore();
-                System.out.println(score);
+                System.out.println(calculScore() + " " + erreurCumulees + " / " + difficulte);
             }else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.STOPPED){
                 Score scoreWindow = new Score(score);
                 Stage stage = new Stage();

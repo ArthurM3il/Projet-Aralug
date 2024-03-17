@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SelectionDifficulte extends Application {
     private final Utils utils = new Utils();
 
-    private static int difficulte = 1;
+    private static int difficulte = 0;
 
     private static Music music;
 
@@ -89,22 +89,23 @@ public class SelectionDifficulte extends Application {
 
     public void changerDiffuculte(int changement, Text text, String message, LecteurTexte lecteur) {
         if (changement == 1) {
-            this.difficulte--;
-        } else if (changement == 0) {
             this.difficulte++;
+        } else if (changement == 0) {
+            this.difficulte--;
         }
-        if (difficulte > 3) {
+        if (difficulte > 2) {
             this.difficulte = 0;
-        } else if (difficulte < 1) {
-            this.difficulte = 3;
+        } else if (difficulte < 0) {
+            this.difficulte = 2;
         }
-        if (difficulte == 1) {
+        if (difficulte == 2) {
             message = "Difficulté difficile";
-        } else if (difficulte == 2) {
+        } else if (difficulte == 1) {
             message = "Difficulté moyen";
-        } else if (difficulte == 3) {
+        } else if (difficulte == 0) {
             message = "Difficulté facile";
         }
+        System.out.println(difficulte);
         text.setText(message);
         lecteur.setTexte(message);
         lecteur.play();
