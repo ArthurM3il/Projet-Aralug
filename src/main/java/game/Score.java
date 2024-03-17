@@ -30,7 +30,7 @@ public class Score extends Application {
         double screenHeight = screenSize.getHeight();
 
         // Création du texte
-        String message = "Votre score : " + this.score;
+        String message = "Votre score est de " + this.score;
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -67,6 +67,7 @@ public class Score extends Application {
         lecteur.setTexte(message);
 
         primaryStage.setOnShown(windowEvent -> lecteur.play());
+        lecteur.play();
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
@@ -74,6 +75,8 @@ public class Score extends Application {
                 Stage stage = new Stage();
                 mainMenu.start(stage);
                 primaryStage.close();
+            } else {
+                lecteur.play();
             }
         });
     }

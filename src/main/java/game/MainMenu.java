@@ -24,10 +24,10 @@ public class MainMenu extends Application {
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
-        MusicPlayer.loadMusic("assets/voices/EspacePourCommencer.wav");
+        //MusicPlayer.loadMusic("assets/voices/EspacePourCommencer.wav");
 
         // Création du texte
-        String message = "Appuyez sur espace pour commencer";
+        String message = "Appuyez sur espace pour choisir une musique";
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -55,24 +55,29 @@ public class MainMenu extends Application {
         scene.widthProperty().addListener((obs, oldVal, newVal) -> utils.updateAndCenterText(text, scene));
         scene.heightProperty().addListener((obs, oldVal, newVal) -> utils.updateAndCenterText(text, scene));
 
+        //Initialisation du lecteur de texte SI_VOX
+        LecteurTexte lecteur = new LecteurTexte();
+        lecteur.setTexte(message);
+        primaryStage.setOnShown(windowEvent -> lecteur.play());
+
+
         primaryStage.setScene(scene);
         primaryStage.setOnShown(event -> MusicPlayer.playMusic());
         primaryStage.setTitle("Menu Principal");
         primaryStage.show();
 
-        //Initialisation du lecteur de texte SI_VOX
-        LecteurTexte lecteur = new LecteurTexte();
-        lecteur.setTexte(message);
-
+        lecteur.play();
 
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
-                SelectionMenu menuSelection = new SelectionMenu();
+                SelectionMusique menuSelection = new SelectionMusique();
                 Stage stage = new Stage();
                 menuSelection.start(stage);
                 primaryStage.close();
-            }else lecteur.play();
+            } else {
+                lecteur.play();
+            }
 
         });
 

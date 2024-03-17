@@ -11,14 +11,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import t2s.son.LecteurTexte;
-import utils.MusicPlayer;
 import utils.Utils;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class SelectionMenu extends Application {
+public class SelectionMusique extends Application {
 
     private final Utils utils = new Utils();
 
@@ -37,7 +34,7 @@ public class SelectionMenu extends Application {
         musiques.add(Music.DP_INSTANTCRUSH);
         musiques.add(Music.JUL_LAZONE);
         // Création du texte
-        String message = new String(musiques.get(indexMenu).getTitre());
+        String message = new String("Sélectionnez une musique");
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -73,9 +70,7 @@ public class SelectionMenu extends Application {
         LecteurTexte lecteur = new LecteurTexte();
         lecteur.setTexte(message);
 
-        primaryStage.setOnShown(windowEvent -> lecteur.play());
-
-
+        lecteur.play();
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {

@@ -36,7 +36,7 @@ public class SelectionDifficulte extends Application {
         double screenHeight = screenSize.getHeight();
 
         // Création du texte
-        String message = new String("Difficulté facile");
+        String message = new String("Sélectionnez une difficulté");
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -74,7 +74,7 @@ public class SelectionDifficulte extends Application {
 
         primaryStage.setOnShown(windowEvent -> lecteur.play());
 
-
+        lecteur.play();
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
