@@ -1,5 +1,6 @@
 package game;
 
+import elements.Musique;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -30,9 +31,9 @@ public class SelectionMusique extends Application {
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
 
-        ArrayList<Music> musiques = new ArrayList<>();
-        musiques.add(Music.DP_INSTANTCRUSH);
-        musiques.add(Music.JUL_LAZONE);
+        ArrayList<Musique> musiques = new ArrayList<>();
+        musiques.add(Musique.DP_INSTANTCRUSH);
+        musiques.add(Musique.JUL_LAZONE);
         // Création du texte
         String message = new String("Sélectionnez une musique");
         Text text = new Text(message);
@@ -88,7 +89,7 @@ public class SelectionMusique extends Application {
         });
     }
 
-    public void changerMusique(int changement, ArrayList<Music> musiques, Text text, String message, LecteurTexte lecteur) {
+    public void changerMusique(int changement, ArrayList<Musique> musiques, Text text, String message, LecteurTexte lecteur) {
         if (changement == 1) {
             this.indexMenu++;
         } else if (changement == 0) {

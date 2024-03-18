@@ -1,10 +1,11 @@
 package game;
 
+import elements.Difficulte;
+import elements.Musique;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -14,18 +15,16 @@ import javafx.stage.Stage;
 import t2s.son.LecteurTexte;
 import utils.Utils;
 
-import java.util.ArrayList;
-
 public class SelectionDifficulte extends Application {
     private final Utils utils = new Utils();
 
     private static Difficulte difficulte;
 
     private static int choixDifficulte;
-    private static Music music;
+    private static Musique musique;
 
-    public SelectionDifficulte(Music music) {
-        this.music = music;
+    public SelectionDifficulte(Musique musique) {
+        this.musique = musique;
     }
     public void start(Stage primaryStage) {
 
@@ -78,7 +77,7 @@ public class SelectionDifficulte extends Application {
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
-                Jeu jeu = new Jeu(music, getNombreDifficulte());
+                Jeu jeu = new Jeu(musique, getNombreDifficulte());
                 Stage stage = new Stage();
                 jeu.start(stage);
                 primaryStage.close();

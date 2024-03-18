@@ -1,4 +1,4 @@
-package game;
+package elements;
 
 public enum Difficulte {
     FACILE("facile", Integer.MAX_VALUE),

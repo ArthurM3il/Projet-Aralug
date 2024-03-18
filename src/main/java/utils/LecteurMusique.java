@@ -6,7 +6,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-public class MusicPlayer{
+public class LecteurMusique {
     private static Clip currentClip;
     private static Clip achievementClip;
 

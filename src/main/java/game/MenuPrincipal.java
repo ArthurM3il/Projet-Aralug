@@ -11,10 +11,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import t2s.son.LecteurTexte;
-import utils.MusicPlayer;
+import utils.LecteurMusique;
 import utils.Utils;
 
-public class MainMenu extends Application {
+public class MenuPrincipal extends Application {
 
     private final Utils utils = new Utils();
 
@@ -62,7 +62,7 @@ public class MainMenu extends Application {
 
 
         primaryStage.setScene(scene);
-        primaryStage.setOnShown(event -> MusicPlayer.playMusic());
+        primaryStage.setOnShown(event -> LecteurMusique.playMusic());
         primaryStage.setTitle("Menu Principal");
         primaryStage.show();
 
@@ -75,6 +75,8 @@ public class MainMenu extends Application {
                 Stage stage = new Stage();
                 menuSelection.start(stage);
                 primaryStage.close();
+            } else if (event.getCode().equals(KeyCode.ENTER)) {
+
             } else {
                 lecteur.play();
             }

@@ -1,6 +1,6 @@
-package game;
+package elements;
 
-public enum Music {
+public enum Musique {
     DP_INSTANTCRUSH("Daft Punk - Instant Crush",110,"assets/musics/DaftPunkInstantCrush.aiff"),
     JUL_LAZONE("Jul - J'fais plaisir à la zone",133,"assets/musics/JulLaZone.wav");
 
@@ -16,7 +16,7 @@ public enum Music {
     private String path;
     private String titre;
 
-    Music( String titre,int bpm, String path) {
+    Musique(String titre, int bpm, String path) {
         this.bpm = bpm;
         this.path = path;
         this.titre = titre;

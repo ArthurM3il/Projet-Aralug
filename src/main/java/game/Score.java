@@ -15,10 +15,10 @@ import utils.Utils;
 
 public class Score extends Application {
 
-    private double score;
+    private int score;
     private final Utils utils = new Utils();
 
-    public Score(double score){
+    public Score(int score){
         this.score = score;
     }
     @Override
@@ -30,7 +30,7 @@ public class Score extends Application {
         double screenHeight = screenSize.getHeight();
 
         // Création du texte
-        String message = "Votre score est de " + this.score;
+        String message = "Votre score est de " + String.valueOf(score);
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -66,14 +66,13 @@ public class Score extends Application {
         LecteurTexte lecteur = new LecteurTexte();
         lecteur.setTexte(message);
 
-        primaryStage.setOnShown(windowEvent -> lecteur.play());
         lecteur.play();
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
-                MainMenu mainMenu = new MainMenu();
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
                 Stage stage = new Stage();
-                mainMenu.start(stage);
+                menuPrincipal.start(stage);
                 primaryStage.close();
             } else {
                 lecteur.play();

@@ -1,5 +1,6 @@
 package game;
 
+import elements.Musique;
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -12,8 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import t2s.Main;
-import utils.MusicPlayer;
+import utils.LecteurMusique;
 import utils.Utils;
 
 public class Jeu extends Application {
@@ -23,12 +23,12 @@ public class Jeu extends Application {
     private final Circle referenceCircle = createCircle(100, 200);
     private final Circle playerCircle = createCircle(400, 200);
     private static final double SCALE_FACTOR = 1.5;
-    private final Music music;
+    private final Musique musique;
     private final Utils utils = new Utils();
     private static Timeline gameTimeline;
     private long startTimeReferenceCircle = 0;
     private long startTimePlayerCircle = 0;
-    private static double score;
+    private static int score;
 
     private static int erreurCumulees = 0;
 
@@ -36,8 +36,8 @@ public class Jeu extends Application {
 
     private static Stage primaryStage;
     private static Thread musicThread;
-    public Jeu(Music music, int difficulte) {
-        this.music = music;
+    public Jeu(Musique musique, int difficulte) {
+        this.musique = musique;
         this.difficulte = difficulte;
     }
 
@@ -68,19 +68,19 @@ public class Jeu extends Application {
         primaryStage.setTitle("Circles");
         this.primaryStage = primaryStage;
         primaryStage.show();
-        primaryStage.setOnCloseRequest(event -> MusicPlayer.stopMusic());
+        primaryStage.setOnCloseRequest(event -> LecteurMusique.stopMusic());
 
         scene.widthProperty().addListener((obs, oldVal, newVal) -> utils.updateAndCenterCircle(referenceCircle, playerCircle, scene));
         scene.heightProperty().addListener((obs, oldVal, newVal) -> utils.updateAndCenterCircle(referenceCircle, playerCircle, scene));
         utils.updateAndCenterCircle(referenceCircle, playerCircle,scene);
 
         //Charger la musique
-        MusicPlayer.loadMusic(music.getPath());
+        LecteurMusique.loadMusic(musique.getPath());
 
 
         // Caler les battements du cercle sur le tempo de la musique
-            gameTimeline = new Timeline(new javafx.animation.KeyFrame(Duration.seconds(60.0 / music.getBpm()), event -> {
-            musicThread = new Thread(MusicPlayer::playMusic);
+            gameTimeline = new Timeline(new javafx.animation.KeyFrame(Duration.seconds(60.0 / musique.getBpm()), event -> {
+            musicThread = new Thread(LecteurMusique::playMusic);
             musicThread.start();
             initBeatAnimations(referenceCircle);
             scaleTransition.playFromStart();
@@ -163,12 +163,12 @@ public class Jeu extends Application {
             return 10.0;
         }else{
             erreurCumulees++;
-            return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ music.getBpm())) + 12.24);
+            return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ musique.getBpm())) + 12.24);
         }
     }
 
     public void defaite() {
-        MusicPlayer.stopMusic();
+        LecteurMusique.stopMusic();
         Score scoreWindow = new Score(score);
         Stage stage = new Stage();
         try {
