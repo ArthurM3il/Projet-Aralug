@@ -8,7 +8,11 @@ import java.io.IOException;
 
 public class LecteurMusique {
     private static Clip currentClip;
-    private static Clip achievementClip;
+    private static Clip victoireClip;
+
+    private static Clip defaiteClip;
+
+    private static Clip erreurClip;
 
     public static void playMusic() {
             try {
@@ -22,9 +26,9 @@ public class LecteurMusique {
                 currentClip.close();
                 Jeu.endTimeline();
                 Thread.sleep(20);
-                achievementClip.start();
+                victoireClip.start();
                 Thread.sleep(2500);
-                achievementClip.close();
+                victoireClip.close();
             } catch ( InterruptedException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -35,7 +39,7 @@ public class LecteurMusique {
     public static void stopMusic(){
         try{
             currentClip.close();
-            achievementClip.close();
+            victoireClip.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,12 +52,43 @@ public class LecteurMusique {
             currentClip = AudioSystem.getClip();
             currentClip.open(audioStream);
 
-            File achievementFile = new File("assets/effects/Achievement.wav");
-            AudioInputStream achievementStream = AudioSystem.getAudioInputStream(achievementFile);
-            achievementClip = AudioSystem.getClip();
-            achievementClip.open(achievementStream);
+            File victoireFile = new File("assets/effects/Victoire.wav");
+            File defaiteFile = new File("assets/effects/Defaite.wav");
+            File erreurFile = new File("assets/effects/Erreur.wav");
+            AudioInputStream victoireStream = AudioSystem.getAudioInputStream(victoireFile);
+            AudioInputStream defaiteStream = AudioSystem.getAudioInputStream(defaiteFile);
+            AudioInputStream erreurStream = AudioSystem.getAudioInputStream(erreurFile);
+            victoireClip = AudioSystem.getClip();
+            victoireClip.open(victoireStream);
+            defaiteClip = AudioSystem.getClip();
+            defaiteClip.open(defaiteStream);
+            erreurClip = AudioSystem.getClip();
+            erreurClip.open(erreurStream);
 
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sonErreur() {
+        try{
+            erreurClip.start();
+            Thread.sleep(1000);
+            Jeu.endErreurThread();
+            erreurClip.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sonDefaite() {
+        try {
+            currentClip.close();
+            victoireClip.close();
+            defaiteClip.start();
+            Thread.sleep(4000);
+            defaiteClip.stop();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

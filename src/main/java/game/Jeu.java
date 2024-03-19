@@ -26,6 +26,8 @@ public class Jeu extends Application {
     private final Musique musique;
     private final Utils utils = new Utils();
     private static Timeline gameTimeline;
+
+    private static Timeline erreurTimeLine;
     private long startTimeReferenceCircle = 0;
     private long startTimePlayerCircle = 0;
     private static int score;
@@ -36,6 +38,8 @@ public class Jeu extends Application {
 
     private static Stage primaryStage;
     private static Thread musicThread;
+
+    private static Thread erreurThread;
     public Jeu(Musique musique, int difficulte) {
         this.musique = musique;
         this.difficulte = difficulte;
@@ -92,9 +96,12 @@ public class Jeu extends Application {
 
         });
 
+        erreurThread = new Thread(LecteurMusique::sonErreur);
+
         // Mettre à jour le deuxième cercle lorsqu'on appuie sur la barre d'espace
         root.setOnKeyPressed(event -> {
             if (erreurCumulees >= difficulte) {
+                LecteurMusique.sonDefaite();
                 defaite();
             } else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
@@ -151,6 +158,10 @@ public class Jeu extends Application {
 
     public static void endTimeline(){
         gameTimeline.stop();
+    }
+
+    public static void endErreurThread(){
+        erreurThread.interrupt();
     }
 
     public long getDifference(){
