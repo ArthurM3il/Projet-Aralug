@@ -8,10 +8,12 @@ module org.example.demo {
     requires com.almasb.fxgl.all;
     requires SI.VOX;
     requires java.desktop;
+    requires junit;
 
     opens game to javafx.fxml;
     exports game;
     exports elements;
+    exports tests;
     opens elements to javafx.fxml;
 
 }

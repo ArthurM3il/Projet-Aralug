@@ -1,5 +1,6 @@
 package utils;
 
+import elements.Musique;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -9,7 +10,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
+import java.util.ArrayList;
+
 public class Utils {
+
+    public static final String DROITE = "DROITE";
+    public static final String GAUCHE = "GAUCHE";
     private final Rectangle2D screenSize;
 
     public Utils(){
@@ -51,5 +57,19 @@ public class Utils {
         referenceCircle.centerYProperty().bind(scene.heightProperty().divide(2));
         playerCircle.centerXProperty().bind(scene.widthProperty().multiply(3).divide(4));
         playerCircle.centerYProperty().bind(scene.heightProperty().divide(2));
+    }
+
+    public static int changerIndex(String changement, int taille, int indexMenu) {
+        if (DROITE.equals(changement)) {
+            indexMenu++;
+        } else if (GAUCHE.equals(changement)) {
+            indexMenu--;
+        }
+        if (indexMenu >= taille) {
+            indexMenu = 0;
+        } else if (indexMenu < 0) {
+            indexMenu = taille;
+        }
+        return indexMenu;
     }
 }

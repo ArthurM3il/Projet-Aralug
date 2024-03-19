@@ -15,7 +15,11 @@ import javafx.stage.Stage;
 import t2s.son.LecteurTexte;
 import utils.Utils;
 
+import java.util.ArrayList;
+
 public class SelectionDifficulte extends Application {
+    public static final String DROITE = "DROITE";
+    public static final String GAUCHE = "GAUCHE";
     private final Utils utils = new Utils();
 
     private static Difficulte difficulte;
@@ -74,6 +78,7 @@ public class SelectionDifficulte extends Application {
         primaryStage.setOnShown(windowEvent -> lecteur.play());
 
         lecteur.play();
+        lireDifficulte(text, lecteur);
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
@@ -83,31 +88,21 @@ public class SelectionDifficulte extends Application {
                 primaryStage.close();
                 System.out.println("Début du jeu !");
             } else if (event.getCode().equals(KeyCode.RIGHT)){
-                changerDifficulte(1, text, message, lecteur);
+                choixDifficulte = Utils.changerIndex(Utils.DROITE, 3, choixDifficulte);
+                lireDifficulte(text, lecteur);
             } else if (event.getCode().equals(KeyCode.LEFT)) {
-                changerDifficulte(0, text, message, lecteur);
+                choixDifficulte = Utils.changerIndex(Utils.GAUCHE, 3, choixDifficulte);
+                lireDifficulte(text, lecteur);
             }
         });
     }
 
-    public void changerDifficulte(int changement, Text text, String message, LecteurTexte lecteur) {
-        if (changement == 1) {
-            choixDifficulte++;
-        } else if (changement == 0) {
-            choixDifficulte--;
-        }
-        if (choixDifficulte > 2) {
-            choixDifficulte = 0;
-        } else if (choixDifficulte < 0) {
-            choixDifficulte = 2;
-        }
-
-        message = "Difficulté " + getNomDifficulte();
+    public void lireDifficulte(Text text, LecteurTexte lecteur) {
+        String message = "Difficulté " + getNomDifficulte();
         text.setText(message);
         lecteur.setTexte(message);
         lecteur.play();
     }
-
     public String getNomDifficulte() {
         if (choixDifficulte == 0) {
             return Difficulte.FACILE.getNom();

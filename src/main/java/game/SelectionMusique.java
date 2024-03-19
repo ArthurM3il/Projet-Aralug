@@ -72,6 +72,7 @@ public class SelectionMusique extends Application {
         lecteur.setTexte(message);
 
         lecteur.play();
+        lireTitreMusique(musiques, text, lecteur);
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
@@ -80,27 +81,19 @@ public class SelectionMusique extends Application {
                 selectionDifficulte.start(stage);
                 primaryStage.close();
             } else if (event.getCode().equals(KeyCode.RIGHT)){
-                changerMusique(1, musiques, text, message, lecteur);
+                indexMenu = Utils.changerIndex(Utils.DROITE, musiques.size(), indexMenu);
+                lireTitreMusique(musiques, text, lecteur);
             } else if (event.getCode().equals(KeyCode.LEFT)) {
-                changerMusique(0, musiques, text, message, lecteur);
+                indexMenu = Utils.changerIndex(Utils.GAUCHE, musiques.size(), indexMenu);
+                lireTitreMusique(musiques, text, lecteur);
             } else {
                 lecteur.play();
             }
         });
     }
 
-    public void changerMusique(int changement, ArrayList<Musique> musiques, Text text, String message, LecteurTexte lecteur) {
-        if (changement == 1) {
-            this.indexMenu++;
-        } else if (changement == 0) {
-            this.indexMenu--;
-        }
-        if (indexMenu >= musiques.size()) {
-            this.indexMenu = 0;
-        } else if (indexMenu < 0) {
-            this.indexMenu = musiques.size();
-        }
-        message = musiques.get(this.indexMenu).getTitre();
+    public void lireTitreMusique(ArrayList<Musique> musiques, Text text, LecteurTexte lecteur) {
+        String message = musiques.get(this.indexMenu).getTitre();
         text.setText(message);
         lecteur.setTexte(message);
         lecteur.play();
