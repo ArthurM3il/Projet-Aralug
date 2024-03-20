@@ -55,7 +55,7 @@ public class Utils {
         //Centrer les cercles
         referenceCircle.centerXProperty().bind(scene.widthProperty().divide(4));
         referenceCircle.centerYProperty().bind(scene.heightProperty().divide(2));
-        playerCircle.centerXProperty().bind(scene.widthProperty().multiply(3).divide(4));
+        playerCircle.centerXProperty().bind(scene.widthProperty().divide(2));
         playerCircle.centerYProperty().bind(scene.heightProperty().divide(2));
     }
 
