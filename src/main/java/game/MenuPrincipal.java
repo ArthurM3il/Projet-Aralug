@@ -24,10 +24,10 @@ public class MenuPrincipal extends Application {
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
-        //MusicPlayer.loadMusic("assets/voices/EspacePourCommencer.wav");
+        //LecteurMusique.loadMusic("assets/voices/MenuPrincipal.wav");
 
         // Création du texte
-        String message = "Appuyez sur espace pour choisir une musique";
+        String message = "Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique. ";
         Text text = new Text(message);
         Font luciole = Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",screenWidth * 0.05);
         text.setFont(luciole);
@@ -75,10 +75,10 @@ public class MenuPrincipal extends Application {
                 Stage stage = new Stage();
                 menuSelection.start(stage);
                 primaryStage.close();
-            } else if (event.getCode().equals(KeyCode.ENTER)) {
-
+            } else if (event.getCode().equals(KeyCode.ENTER)){
+                Utils.lireRegles();
             } else {
-                lecteur.play();
+                Utils.lireNavigation();
             }
 
         });

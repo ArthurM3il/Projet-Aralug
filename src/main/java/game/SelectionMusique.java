@@ -86,8 +86,10 @@ public class SelectionMusique extends Application {
             } else if (event.getCode().equals(KeyCode.LEFT)) {
                 indexMenu = Utils.changerIndex(Utils.GAUCHE, musiques.size(), indexMenu);
                 lireTitreMusique(musiques, text, lecteur);
+            } else if (event.getCode().equals(KeyCode.ENTER)){
+                Utils.lireRegles();
             } else {
-                lecteur.play();
+                Utils.lireNavigation();
             }
         });
     }

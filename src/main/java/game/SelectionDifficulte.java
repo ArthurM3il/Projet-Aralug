@@ -93,6 +93,10 @@ public class SelectionDifficulte extends Application {
             } else if (event.getCode().equals(KeyCode.LEFT)) {
                 choixDifficulte = Utils.changerIndex(Utils.GAUCHE, 3, choixDifficulte);
                 lireDifficulte(text, lecteur);
+            } else if (event.getCode().equals(KeyCode.ENTER)){
+                Utils.lireRegles();
+            } else {
+                Utils.lireNavigation();
             }
         });
     }

@@ -9,6 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import t2s.son.LecteurTexte;
 
 import java.util.ArrayList;
 
@@ -71,5 +72,19 @@ public class Utils {
             indexMenu = taille;
         }
         return indexMenu;
+    }
+
+    public static void lireRegles() {
+        String message = "Règles Lors du lancement du jeu vous devez appuyer sur espace en rythme sur les battements de la musique pour maximiser votre score.";
+        LecteurTexte lecteur = new LecteurTexte();
+        lecteur.setTexte(message);
+        lecteur.play();
+    }
+
+    public static void lireNavigation() {
+        String message = "Pour naviguer dans les écrans vous devez appuyer sur espace pour aller à l'écran suivant ou appuyer sur les flèches directionnelles droite et gauche pour choisir la musique et la difficulté";
+        LecteurTexte lecteur = new LecteurTexte();
+        lecteur.setTexte(message);
+        lecteur.play();
     }
 }
