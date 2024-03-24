@@ -12,6 +12,7 @@ module org.example.demo {
 
     opens game to javafx.fxml;
     exports game;
+    exports vues;
     exports elements;
     exports tests;
     opens elements to javafx.fxml;

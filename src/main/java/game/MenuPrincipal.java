@@ -24,7 +24,7 @@ public class MenuPrincipal extends Application {
         Rectangle2D screenSize = utils.getScreenSize();
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
-        //LecteurMusique.loadMusic("assets/voices/MenuPrincipal.wav");
+
 
         // Création du texte
         String message = "Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique. ";
@@ -80,7 +80,6 @@ public class MenuPrincipal extends Application {
             } else {
                 Utils.lireNavigation();
             }
-
         });
 
     }
