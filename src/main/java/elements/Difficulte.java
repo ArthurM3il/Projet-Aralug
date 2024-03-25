@@ -19,4 +19,24 @@ public enum Difficulte {
     public int getNombreErreurCumuluees() {
         return nombreErreurCumuluees;
     }
+
+    public static String getNomDifficulte(int choixDifficulte) {
+        if (choixDifficulte == 0) {
+            return Difficulte.FACILE.getNom();
+        } else if (choixDifficulte == 1) {
+            return Difficulte.MOYEN.getNom();
+        } else {
+            return Difficulte.DIFFICILE.getNom();
+        }
+    }
+
+    public static int getNombreDifficulte(int choixDifficulte) {
+        if (choixDifficulte == 0) {
+            return Difficulte.FACILE.getNombreErreurCumuluees();
+        } else if (choixDifficulte == 1) {
+            return Difficulte.MOYEN.getNombreErreurCumuluees();
+        } else {
+            return Difficulte.DIFFICILE.getNombreErreurCumuluees();
+        }
+    }
 }

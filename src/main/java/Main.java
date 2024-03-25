@@ -22,17 +22,11 @@ public class Main extends Application {
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
         Pane root = new Pane();
-        String message = "Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique. ";
-        Text text = new Text(message);
-        root.getChildren().add(text);
         Scene scene = new Scene(root, screenWidth, screenHeight);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Aralug");
-        ModeleMenuPrincipal modele = new ModeleMenuPrincipal("Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique");
         VueMenuPrincipal vue = new VueMenuPrincipal(primaryStage);
-        ControleurMenuPrincipal controleur = new ControleurMenuPrincipal(primaryStage);
-
-        //primaryStage.setFullScreen(true);
+        primaryStage.getScene().setRoot(vue.getUI());
         primaryStage.show();
     }
 

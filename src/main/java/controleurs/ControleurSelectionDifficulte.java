@@ -1,5 +1,7 @@
 package controleurs;
 
+import elements.Difficulte;
+import elements.Musique;
 import javafx.stage.Stage;
 import modeles.ModeleSelectionDifficulte;
 import vues.VueJeu;
@@ -14,8 +16,8 @@ public class ControleurSelectionDifficulte {
         this.stage = primaryStage;
     }
 
-    public static void changerVue(Stage stage) {
-        VueJeu vueJeu = new VueJeu(stage);
+    public static void changerVue(Stage stage, Musique musique, int difficulte) {
+        VueJeu vueJeu = new VueJeu(stage, musique, difficulte);
         stage.getScene().setRoot(vueJeu.getUI());
     }
 }

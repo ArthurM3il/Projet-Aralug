@@ -2,62 +2,73 @@ package vues;
 
 import controleurs.ControleurMenuPrincipal;
 import controleurs.ControleurSelectionDifficulte;
+import elements.Difficulte;
+import elements.Musique;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import t2s.son.LecteurTexte;
+import utils.Utils;
 
 import java.awt.*;
 
 public class VueSelectionDifficulte {
 
     private Pane ui;
-    private Label label;
+
+    private Text texte;
 
     private double largeurEcran;
 
     private double hauteurEcran;
 
-    public VueSelectionDifficulte(Stage stage) {
+    private int difficulte;
+
+    private LecteurTexte lecteurTexte;
+
+    public VueSelectionDifficulte(Stage stage, Musique musique) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
-        label = new Label("Appuyer sur la touche espace pour accéder à l'écran suivant et jouer");
+        texte = new Text("Difficulté facile");
+        lecteurTexte = new LecteurTexte();
+        lecteurTexte.setTexte("Sélectionnez la difficulté");
+        lecteurTexte.play();
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
-        changerScene(stage);
+        changerScene(stage, musique);
+        afficherTexte(texte.getText());
     }
 
-    public void afficherTexte(String texte) {
-        Text text = new Text(texte);
-        text.setFill(Color.YELLOW);
-        double taillePolice = Math.min(largeurEcran, hauteurEcran) / 15; // Taille de police proportionnelle à la taille de l'écran
-        text.setFont(javafx.scene.text.Font.loadFont(getClass().getResourceAsStream("Luciole.ttf"), taillePolice));
-        text.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",60));
-        text.setX((largeurEcran - text.getLayoutBounds().getWidth()) / 2);
-        text.setY((hauteurEcran - text.getLayoutBounds().getHeight()) / 2);
-        ui.getChildren().add(text);
+    public void afficherTexte(String chaine) {
+        lecteurTexte.setTexte(chaine);
+        lecteurTexte.play();
+        texte.setText(chaine);
+        texte.setFill(Color.YELLOW);
+        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",60));
+        texte.setX((largeurEcran - texte.getLayoutBounds().getWidth()) / 2);
+        texte.setY((hauteurEcran - texte.getLayoutBounds().getHeight()) / 2);
+        ui.getChildren().add(texte);
     }
 
     public Pane getUI() {
         return ui;
     }
 
-    private void changerScene(Stage stage) {
+    private void changerScene(Stage stage, Musique musique) {
         stage.getScene().setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
                 System.out.println("Vue selection difficulte changement vers jeu");
-                ControleurSelectionDifficulte.changerVue(stage);
+                ControleurSelectionDifficulte.changerVue(stage, musique, Difficulte.getNombreDifficulte(difficulte));
+            } else if (event.getCode().equals(KeyCode.RIGHT)){
+                difficulte = Utils.changerIndex(Utils.DROITE, 3, difficulte);
+                afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
+            } else if (event.getCode().equals(KeyCode.LEFT)) {
+                difficulte = Utils.changerIndex(Utils.GAUCHE, 3, difficulte);
+                afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
             }
         });
-    }
-
-    public double getLargeurEcran() {
-        return largeurEcran;
-    }
-
-    public double getHauteurEcran() {
-        return hauteurEcran;
     }
 }

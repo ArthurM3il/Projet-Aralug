@@ -45,13 +45,13 @@ public class Utils {
         StackPane.setAlignment(text, Pos.CENTER);
     }
 
-    public void updateCircleSize(Circle referenceCircle,Circle playerCircle, Scene scene){
+    public static void updateCircleSize(Circle referenceCircle,Circle playerCircle, Scene scene){
         double radius = (scene.getWidth() + scene.getHeight() )/ 10.0 ;
         referenceCircle.setRadius(radius);
         playerCircle.setRadius(radius);
     }
 
-    public void updateAndCenterCircle(Circle referenceCircle, Circle playerCircle, Scene scene){
+    public static void updateAndCenterCircle(Circle referenceCircle, Circle playerCircle, Scene scene){
         updateCircleSize(referenceCircle,playerCircle,scene);
         //Centrer les cercles
         referenceCircle.centerXProperty().bind(scene.widthProperty().divide(4));

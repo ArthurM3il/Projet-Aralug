@@ -174,7 +174,7 @@ public class Jeu extends Application {
             return 10.0;
         }else{
             erreurCumulees++;
-            return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ musique.getBpm())) + 12.24);
+            return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ musique.getBpm())) + 12.24);//PRENDRE EN COMPTE LE FAIT DAPPUYER TROP TOT
         }
     }
 
