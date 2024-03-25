@@ -1,23 +1,23 @@
 package controleurs;
 
+import javafx.stage.Stage;
 import modeles.ModeleMenuPrincipal;
 import vues.VueMenuPrincipal;
-import vues.VueSelectionMenu;
+import vues.VueSelectionMusique;
 
 public class ControleurMenuPrincipal {
 
-    private ModeleMenuPrincipal modeleMenuPrincipal;
-    private static VueMenuPrincipal vueMenuPrincipal;
 
-    public ControleurMenuPrincipal(ModeleMenuPrincipal modeleMenuPrincipal, VueMenuPrincipal vueMenuPrincipal) {
-        this.modeleMenuPrincipal = modeleMenuPrincipal;
-        this.vueMenuPrincipal = vueMenuPrincipal;
 
-        vueMenuPrincipal.afficherTexte(modeleMenuPrincipal.getTexte());
+    private static Stage stage;
+
+    public ControleurMenuPrincipal(Stage primaryStage) {
+        this.stage = primaryStage;
+
     }
 
-    public static void changerVue() {
-        VueSelectionMenu vueSelectionMenu = new VueSelectionMenu();
-        vueMenuPrincipal.getUI().getScene().setRoot(vueSelectionMenu.getUI());
+    public static void changerVue(Stage stage) {
+        VueSelectionMusique vueSelectionMusique = new VueSelectionMusique(stage);
+        stage.getScene().setRoot(vueSelectionMusique.getUI());
     }
 }
