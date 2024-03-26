@@ -16,6 +16,10 @@ import javafx.util.Duration;
 import utils.LecteurMusique;
 import utils.Utils;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Jeu extends Application {
 
     private static final double CIRCLE_RADIUS = 50;
@@ -39,7 +43,6 @@ public class Jeu extends Application {
     private static Stage primaryStage;
     private static Thread musicThread;
 
-    private static Thread erreurThread;
     public Jeu(Musique musique, int difficulte) {
         this.musique = musique;
         this.difficulte = difficulte;
@@ -96,7 +99,6 @@ public class Jeu extends Application {
 
         });
 
-        erreurThread = new Thread(LecteurMusique::sonErreur);
 
         // Mettre à jour le deuxième cercle lorsqu'on appuie sur la barre d'espace
         root.setOnKeyPressed(event -> {
@@ -160,9 +162,6 @@ public class Jeu extends Application {
         gameTimeline.stop();
     }
 
-    public static void endErreurThread(){
-        erreurThread.interrupt();
-    }
 
     public long getDifference(){
         return startTimePlayerCircle- startTimeReferenceCircle;
@@ -174,6 +173,7 @@ public class Jeu extends Application {
             return 10.0;
         }else{
             erreurCumulees++;
+            lancerErreur();
             return Math.round(getDifference()/1000.0 * 10/(0.1- (60.0/ musique.getBpm())) + 12.24);//PRENDRE EN COMPTE LE FAIT DAPPUYER TROP TOT
         }
     }
@@ -188,6 +188,10 @@ public class Jeu extends Application {
             throw new RuntimeException(e);
         }
         primaryStage.close();
+    }
+
+    public void lancerErreur(){
+        new Thread(LecteurMusique::sonErreur).start();
     }
 
 }

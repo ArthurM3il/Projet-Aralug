@@ -1,6 +1,7 @@
 package utils;
-
 import game.Jeu;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -12,7 +13,7 @@ public class LecteurMusique {
 
     private static Clip defaiteClip;
 
-    private static Clip erreurClip;
+    private static MediaPlayer erreurClip;
 
     public static void playMusic() {
             try {
@@ -55,15 +56,14 @@ public class LecteurMusique {
             File victoireFile = new File("assets/effects/Victoire.wav");
             File defaiteFile = new File("assets/effects/Defaite.wav");
             File erreurFile = new File("assets/effects/Erreur.wav");
+            Media media = new Media(erreurFile.toURI().toString());
+            erreurClip = new MediaPlayer(media);
             AudioInputStream victoireStream = AudioSystem.getAudioInputStream(victoireFile);
             AudioInputStream defaiteStream = AudioSystem.getAudioInputStream(defaiteFile);
-            AudioInputStream erreurStream = AudioSystem.getAudioInputStream(erreurFile);
             victoireClip = AudioSystem.getClip();
             victoireClip.open(victoireStream);
             defaiteClip = AudioSystem.getClip();
             defaiteClip.open(defaiteStream);
-            erreurClip = AudioSystem.getClip();
-            erreurClip.open(erreurStream);
 
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
@@ -71,14 +71,10 @@ public class LecteurMusique {
     }
 
     public static void sonErreur() {
-        try{
-            erreurClip.start();
-            Thread.sleep(1000);
-            Jeu.endErreurThread();
-            erreurClip.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            erreurClip.play();
+            erreurClip.setOnEndOfMedia(() -> {
+                erreurClip.stop();
+            });
     }
 
     public static void sonDefaite() {
