@@ -2,7 +2,6 @@ package controleurs;
 
 import javafx.stage.Stage;
 import vues.VueMenuPrincipal;
-import vues.VueSelectionMusique;
 
 public class ControleurScore {
 

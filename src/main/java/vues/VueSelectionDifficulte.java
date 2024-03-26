@@ -44,10 +44,10 @@ public class VueSelectionDifficulte {
 
     public void afficherTexte(String chaine) {
         lecteurTexte.setTexte(chaine);
-        lecteurTexte.play();
+        lancerSynthese(lecteurTexte);
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
-        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",60));
+        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran * 0.05));
         texte.setX((largeurEcran - texte.getLayoutBounds().getWidth()) / 2);
         texte.setY((hauteurEcran - texte.getLayoutBounds().getHeight()) / 2);
         ui.getChildren().add(texte);
@@ -70,5 +70,11 @@ public class VueSelectionDifficulte {
                 afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
             }
         });
+    }
+
+    public void lancerSynthese(LecteurTexte lecteur){
+        new Thread(() -> {
+            lecteur.play();
+        }).start();
     }
 }

@@ -48,10 +48,10 @@ public class VueSelectionMusique {
 
     public void afficherTexte(String chaine) {
         lecteurTexte.setTexte(chaine);
-        lecteurTexte.play();
+        lancerSynthese(lecteurTexte);
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
-        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",60));
+        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran * 0.05));
         texte.setX((largeurEcran - texte.getLayoutBounds().getWidth()) / 2);
         texte.setY((hauteurEcran - texte.getLayoutBounds().getHeight()) / 2);
         ui.getChildren().add(texte);
@@ -65,7 +65,7 @@ public class VueSelectionMusique {
         stage.getScene().setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
                 System.out.println("Vue selection musique changement vers selection difficulte");
-                ControleurSelectionMusique.changerVue(stage, musique);
+                ControleurSelectionMusique.changerVue(stage, musiques.get(indexMenu));
             } else if (event.getCode().equals(KeyCode.RIGHT)) {
                 indexMenu = Utils.changerIndex(Utils.DROITE, musiques.size(), indexMenu);
                 afficherTexte(musiques.get(indexMenu).getTitre());
@@ -74,5 +74,11 @@ public class VueSelectionMusique {
                 afficherTexte(musiques.get(indexMenu).getTitre());
             }
         });
+    }
+
+    public void lancerSynthese(LecteurTexte lecteur){
+        new Thread(() -> {
+            lecteur.play();
+        }).start();
     }
 }

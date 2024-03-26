@@ -45,12 +45,13 @@ public class VueJeu {
         ui.setStyle("-fx-background-color: black;");
         erreurCumulees = 0;
         score = 0;
+        LecteurMusique.loadMusic(musique.getPath());
+        metonome(musique);
         changerScene(stage, musique, difficulte);
         cercleJoueur = new Circle(400, 200, 50, Color.YELLOW);
         cercleReference = new Circle(100, 200, 50, Color.YELLOW);
         ui.getChildren().addAll(cercleJoueur);
         chargerCercles(stage);
-        LecteurMusique.loadMusic(musique.getPath());
         chargerThread(musique);
     }
     public Pane getUI() {
@@ -62,17 +63,18 @@ public class VueJeu {
             if (erreurCumulees >= difficulte) {
                 LecteurMusique.sonDefaite();
                 LecteurMusique.stopMusic();
-                ControleurJeu.changerVue(stage);
+                ControleurJeu.changerVue(stage, score);
             } else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
-                score += calculScore(getDifference(), musique);
-                System.out.println(calculScore(getDifference(), musique) + " " + erreurCumulees + " / " + difficulte);
+                score += (int) calculScore(getDifference(), musique);
+                System.out.println("Difference : " + getDifference() + " Score : " + (int)calculScore(getDifference(), musique) + " Nombre d'erreur : " + erreurCumulees + " / " + difficulte);
             }else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.STOPPED){
                 System.out.println("Vue jeu changement vers score");
-                ControleurJeu.changerVue(stage);
+                LecteurMusique.stopMusic();
+                ControleurJeu.changerVue(stage, score);
             } else if (event.getCode().equals(KeyCode.ESCAPE)) {
                 LecteurMusique.stopMusic();
-                ControleurJeu.changerVue(stage);
+                ControleurJeu.changerVue(stage, score);
             }
         });
     }
@@ -112,7 +114,7 @@ public class VueJeu {
 
     private void beatCircle() {
         startTimePlayerCircle = 0;
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.15), cercleReference);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.15), cercleJoueur);
         scaleTransition.setFromX(1.0);
         scaleTransition.setFromY(1.0);
         scaleTransition.setToX(1.5);
@@ -128,14 +130,25 @@ public class VueJeu {
     }
 
     public double calculScore(long difference, Musique musique){
-        long battement = 60/musique.getBpm();
+        double battement = (double) 60 /musique.getBpm()*1000;
         if(difference <= 100){
             erreurCumulees = 0;
             return 10.0;
         }else {
             erreurCumulees++;
-            return Math.round(difference/1000.0 * 10/(0.1- (60.0/battement)) + 12.24);
-            //TODO PRENDRE EN COMPTE LE FAIT DAPPUYER TROP TOT
+            lancerErreur();
+            double coefDirecteur = (-20/(battement-100));
+            double ordonneeALorigine = (10 + (2000/(battement-100)));
+            return Math.abs(coefDirecteur*difference + ordonneeALorigine);
         }
+    }
+
+    public void lancerErreur(){
+        new Thread(LecteurMusique::sonErreur).start();
+    }
+
+    public void metonome(Musique musique) {
+        new Thread(LecteurMusique::sonMetronome).start();
+        //LecteurMusique.sonMetronome((double) 60 / musique.getBpm() * 1000);
     }
 }

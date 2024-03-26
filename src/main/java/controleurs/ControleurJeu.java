@@ -1,20 +1,16 @@
 package controleurs;
 
 import javafx.stage.Stage;
-import modeles.ModeleJeu;
-import modeles.ModeleSelectionDifficulte;
-import vues.VueJeu;
 import vues.VueScore;
-import vues.VueSelectionDifficulte;
 
 public class ControleurJeu {
 
-    Stage stage;
+    private Stage stage;
     public ControleurJeu(Stage primaryStage) {
         this.stage = primaryStage;
     }
-    public static void changerVue(Stage stage) {
-        VueScore vueScore= new VueScore(stage);
+    public static void changerVue(Stage stage, int score) {
+        VueScore vueScore = new VueScore(stage, score);
         stage.getScene().setRoot(vueScore.getUI());
     }
 }
