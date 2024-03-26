@@ -58,15 +58,13 @@ public class MenuPrincipal extends Application {
         //Initialisation du lecteur de texte SI_VOX
         LecteurTexte lecteur = new LecteurTexte();
         lecteur.setTexte(message);
-        primaryStage.setOnShown(windowEvent -> lecteur.play());
+        primaryStage.setOnShown(windowEvent -> lancerSynthese(lecteur));
 
 
         primaryStage.setScene(scene);
-        primaryStage.setOnShown(event -> LecteurMusique.playMusic());
         primaryStage.setTitle("Menu Principal");
         primaryStage.show();
-
-        lecteur.play();
+        //lecteur.play();
 
         // Définir le raccourci clavier pour démarrer le jeu
         scene.setOnKeyPressed(event -> {
@@ -76,14 +74,21 @@ public class MenuPrincipal extends Application {
                 menuSelection.start(stage);
                 primaryStage.close();
             } else if (event.getCode().equals(KeyCode.ENTER)){
-                Utils.lireRegles();
+                lancerSynthese(Utils.lireRegles());
+            } else if (event.getCode().equals(KeyCode.ESCAPE)) {
+                primaryStage.close();
             } else {
-                Utils.lireNavigation();
+                lancerSynthese(Utils.lireNavigation());
             }
         });
 
     }
 
+    public void lancerSynthese(LecteurTexte lecteur){
+        new Thread(() -> {
+            lecteur.play();
+        }).start();
+    }
     public static void main(String[] args) {
         launch(args);
     }
