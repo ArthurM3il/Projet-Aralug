@@ -41,6 +41,12 @@ public class VueSelectionMusique {
         ArrayList<Musique> musiques = new ArrayList<>();
         musiques.add(Musique.DP_INSTANTCRUSH);
         musiques.add(Musique.JUL_LAZONE);
+        musiques.add(Musique.SLIMANE_CHEZTOI);
+        musiques.add(Musique.LORIE_MEILLEUREAMIE);
+        musiques.add(Musique.LOUANE_SECRET);
+        musiques.add(Musique.LUCENZO_KUDURO);
+        musiques.add(Musique.SOOLKING_CASANOVA);
+        musiques.add(Musique.SOPRANO_ENFEU);
         texte = new Text(musiques.get(0).getTitre());
         changerScene(stage, musiques.get(indexMenu), musiques);
         afficherTexte(texte.getText());
