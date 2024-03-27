@@ -24,3 +24,29 @@ J'ai parfois sous-estimé le temps que nous avions pour gérer au mieux le conta
 Je remercie Arthur MORENO de m'avoir fait une bonne explication de certaines parties du code, permettant de mieux me l'assimiler.  
 De plus, je remercie Lucas BOYER pour sa capacité d'analyse et sa perception des choses très enrichissantes.  
 Enfin, je remercie Gabin PERLIN pour nous avoir soutenue à distance sur le groupe Discord de notre projet.  
+
+
+BOYER Lucas : 
+
+Ce qui a marché :
+	La réalisation du projet en fonction des demandes clients. Le projet est parfaitement adapté pour les personnes malvoyantes. Et le jeu est beaucoup apprécié par les jeunes du CDDS.
+Pourquoi ?
+	Très bonne relation client. Beaucoup d'information et d'explication indiquées. Voir les jeunes du CDDS apporte une plus grande facilité lors de la réalisation du jeu (choix techniques, graphiques...), on se pose beaucoup moins de question.
+
+Ce qui n'a pas marché :
+	Réalisation plus poussée du projet en termes de technique. Implémenter une intégration de musique plutôt que de les mettre à la main. Cela aurait pu se faire grâce à une transformée de fourrier sur les fichiers audio mit en entrée.
+Pourquoi ?
+	Manque de connaissance et d'investissement dans cette technologie. Nous avons privilégié un jeu moins poussé mais fonctionnel pour une première version. Nous avons préféré partir sur quelque chose de terminé à 100%. 
+
+Ce qui aurait pu être mieux fait :
+	Implémentation de plus de fonctionnalités. Par exemple la transformée de fourrier pour le gameplay et l’insertion des musiques par l’utilisateur.
+	
+Point positif contribution personnel au groupe :
+	Engagement dans la relation client et développement
+Point négatif contribution personnel au groupe :
+	Manque d'implication dans la partie gestion de projet, rédaction des documents.
+
+Point positif membre équipe :
+	Grande implication/réalisation dans le projet pour réaliser quelque chose de fonctionnel et utilisable au final.
+Point négatif membre équipe :
+	Un peu trop de paresse de temps en temps ce qui a mené à quelques retards.
