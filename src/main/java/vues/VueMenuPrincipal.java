@@ -22,7 +22,6 @@ public class VueMenuPrincipal {
 
     private LecteurTexte lecteurTexte;
 
-    private Thread thread;
     public VueMenuPrincipal(Stage stage) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();

@@ -17,9 +17,11 @@ public class LecteurMusique {
 
     private static MediaPlayer metronomeClip;
 
-    public static void playMusic() {
+    public static void playMusic(double battements) {
             try {
+                sonMetronome(battements);
                 currentClip.start();
+                metronomeClip.stop();
 
                 // Attendre la fin de la lecture
                 while (!currentClip.isRunning())
@@ -94,17 +96,17 @@ public class LecteurMusique {
         }
     }
 
-    public static void sonMetronome() {
+    public static void sonMetronome(double battements) {
+        metronomeClip.setOnEndOfMedia(() -> {
+            metronomeClip.stop();
+        });
         for (int i = 0 ; i < 4 ; i++) {
             metronomeClip.play();
             try {
-                Thread.sleep((545));
+                Thread.sleep(((long)battements));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            metronomeClip.setOnEndOfMedia(() -> {
-                metronomeClip.stop();
-            });
         }
     }
 }

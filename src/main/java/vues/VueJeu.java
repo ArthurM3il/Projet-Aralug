@@ -28,8 +28,6 @@ public class VueJeu {
 
     private static Timeline gameTimeline;
 
-    private static Thread musicThread;
-
     private ScaleTransition scaleTransition;
 
     private long startTimeReferenceCircle = 0;
@@ -46,13 +44,13 @@ public class VueJeu {
         erreurCumulees = 0;
         score = 0;
         LecteurMusique.loadMusic(musique.getPath());
-        metonome(musique);
         changerScene(stage, musique, difficulte);
         cercleJoueur = new Circle(400, 200, 50, Color.YELLOW);
         cercleReference = new Circle(100, 200, 50, Color.YELLOW);
         ui.getChildren().addAll(cercleJoueur);
         chargerCercles(stage);
-        chargerThread(musique);
+        chargerTimeline(musique);
+        lancerMusique(musique);
     }
     public Pane getUI() {
         return ui;
@@ -79,10 +77,8 @@ public class VueJeu {
         });
     }
 
-    public void chargerThread(Musique musique) {
+    public void chargerTimeline(Musique musique) {
         gameTimeline = new Timeline(new javafx.animation.KeyFrame(Duration.seconds(60.0 / musique.getBpm()), event -> {
-            musicThread = new Thread(LecteurMusique::playMusic);
-            musicThread.start();
             initBeatAnimations(cercleReference);
             scaleTransition.playFromStart();
         }));
@@ -147,8 +143,11 @@ public class VueJeu {
         new Thread(LecteurMusique::sonErreur).start();
     }
 
-    public void metonome(Musique musique) {
-        new Thread(LecteurMusique::sonMetronome).start();
-        //LecteurMusique.sonMetronome((double) 60 / musique.getBpm() * 1000);
+    public void lancerMusique(Musique musique){
+        new Thread(() -> {
+            LecteurMusique.playMusic((double) 60 / musique.getBpm() * 1000);
+        }).start();
+
     }
+
 }

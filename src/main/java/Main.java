@@ -28,6 +28,7 @@ public class Main extends Application {
         primaryStage.getScene().setRoot(vue.getUI());
         primaryStage.setTitle("Aralug");
         VueMenuPrincipal vue1 = new VueMenuPrincipal(primaryStage);
+        scene.setRoot(vue1.getUI());
 
         primaryStage.show();
     }
