@@ -7,7 +7,7 @@ public enum Musique {
     LUCENZO_KUDURO("Lucenzo feat Don Omar - Danza Kuduro", 130, "assets/musics/LucenzoDanzaKuduro"),
     SOOLKING_CASANOVA("Soolking feat Gazo - Casanova",132,"assets/musics/SoolkingCasanova.wav"),
     SOPRANO_ENFEU("Soprano - En feu", 140, "assets/musics/SopranoEnFeu.wav"),
-    LORIE_MEILLEUREAMIE("Lorie - Je serais (ta meilleure amie)",108,"assets/musics/LorieMeilleureAmie.wav"),
+    LORIE_MEILLEUREAMIE("Lorie - Je serais ta meilleure amie",108,"assets/musics/LorieMeilleureAmie.wav"),
     LOUANE_SECRET("Louane - Secret", 75, "assets/musics/LouaneSecret.wav");
 
     public int getBpm() {
