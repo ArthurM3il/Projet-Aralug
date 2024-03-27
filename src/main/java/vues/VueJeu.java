@@ -2,7 +2,6 @@ package vues;
 
 import controleurs.ControleurJeu;
 import elements.Musique;
-import game.Score;
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -20,7 +19,6 @@ import java.awt.*;
 
 public class VueJeu {
     private Pane ui;
-    private Label label;
 
     private final Circle cercleJoueur;
 
@@ -38,7 +36,7 @@ public class VueJeu {
     private int score;
 
     public VueJeu(Stage stage, Musique musique, int difficulte) {
-        label = new Label("Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique");
+        new Label("Appuyer sur la touche espace pour accéder à l'écran suivant et choisir une musique");
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
         erreurCumulees = 0;
@@ -52,6 +50,11 @@ public class VueJeu {
         chargerTimeline(musique);
         lancerMusique(musique);
     }
+
+    public static void endTimeline() {
+        gameTimeline.stop();
+    }
+
     public Pane getUI() {
         return ui;
     }

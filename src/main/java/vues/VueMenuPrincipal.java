@@ -25,7 +25,7 @@ public class VueMenuPrincipal {
     public VueMenuPrincipal(Stage stage) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
-        label = new Label("Appuyer sur la touche espace pour choisir une musique");
+        Label label = new Label("Appuyer sur la touche espace pour choisir une musique");
         lecteurTexte = new LecteurTexte();
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
@@ -40,7 +40,8 @@ public class VueMenuPrincipal {
         lancerSynthese(lecteurTexte);
         Text text = new Text(texte);
         text.setFill(Color.YELLOW);
-        text.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",60));
+        text.setWrappingWidth(largeurEcran);
+        text.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran*0.07));
         text.setX((largeurEcran - text.getLayoutBounds().getWidth()) / 2);
         text.setY((hauteurEcran - text.getLayoutBounds().getHeight()) / 2);
         ui.getChildren().add(text);

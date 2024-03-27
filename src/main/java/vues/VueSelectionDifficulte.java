@@ -35,7 +35,7 @@ public class VueSelectionDifficulte {
         texte = new Text("Difficulté facile");
         lecteurTexte = new LecteurTexte();
         lecteurTexte.setTexte("Sélectionnez la difficulté");
-        lecteurTexte.play();
+        stage.setOnShown(event -> lancerSynthese(lecteurTexte));
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
         changerScene(stage, musique);
@@ -47,6 +47,7 @@ public class VueSelectionDifficulte {
         lancerSynthese(lecteurTexte);
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
+        texte.setWrappingWidth(largeurEcran);
         texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran * 0.05));
         texte.setX((largeurEcran - texte.getLayoutBounds().getWidth()) / 2);
         texte.setY((hauteurEcran - texte.getLayoutBounds().getHeight()) / 2);

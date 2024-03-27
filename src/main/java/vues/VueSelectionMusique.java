@@ -35,6 +35,7 @@ public class VueSelectionMusique {
 
         lecteurTexte = new LecteurTexte();
         lecteurTexte.setTexte("Sélectionnez une musique");
+        stage.setOnShown(event -> lancerSynthese(lecteurTexte));
         lecteurTexte.play();
         ui.setStyle("-fx-background-color: black;");
         indexMenu = 0;
@@ -57,7 +58,8 @@ public class VueSelectionMusique {
         lancerSynthese(lecteurTexte);
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
-        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran * 0.05));
+        texte.setWrappingWidth(largeurEcran);
+        texte.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran * 0.07));
         texte.setX((largeurEcran - texte.getLayoutBounds().getWidth()) / 2);
         texte.setY((hauteurEcran - texte.getLayoutBounds().getHeight()) / 2);
         ui.getChildren().add(texte);

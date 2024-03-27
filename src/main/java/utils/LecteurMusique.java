@@ -1,7 +1,7 @@
 package utils;
-import game.Jeu;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import vues.VueJeu;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -29,7 +29,7 @@ public class LecteurMusique {
                 while (currentClip.isRunning())
                     Thread.sleep(10);
                 currentClip.close();
-                Jeu.endTimeline();
+                VueJeu.endTimeline();
                 Thread.sleep(20);
                 victoireClip.start();
                 Thread.sleep(2500);
