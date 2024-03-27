@@ -3,6 +3,8 @@ IntelliJ, MVC, MAVEN, patron Observateur
 
 Ressenti Globale Projet Aralug Chef d'équipe:  
 
+Ce projet nous as permis d'acquérir une bonne cohésion d'équipe mais aussi d'apprendre à gérer notre temps et de communiquer avec un client. Nous avons beaucoup apprécié pouvoir travailler pour le CDDS et de faire un tel projet, cela nous as permis de nous documenter sur l'accessibilité aux jeux vidéo pour les personnes atteintes de défficiences visuelles. De plus, nous avons pû réfléchir ensemble et comparer nos différents avis suite aux problèmes que nous avons rencontré afin d'en ressortir une solution. Chacun de nous a acquérit ou eu l'occassion de renforcer des compétences dans le domaine de l'informatique. Si nous devions refaire un tel projet par la suite, nous changerions probablement certaines choses dans notre approche afin de pouvoir être encore plus performant et de ne plus rencontrer les problèmes que nous avons pû rencontrer durant ce projet.
+
 
 Ressenti Menbre Equipe :
 
