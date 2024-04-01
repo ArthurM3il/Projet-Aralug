@@ -9,8 +9,8 @@ public class ControleurJeu {
     public ControleurJeu(Stage primaryStage) {
         this.stage = primaryStage;
     }
-    public static void changerVue(Stage stage, int score) {
-        VueScore vueScore = new VueScore(stage, score);
+    public static void changerVue(Stage stage, int score, int difficulte) {
+        VueScore vueScore = new VueScore(stage, score, difficulte);
         stage.getScene().setRoot(vueScore.getUI());
     }
 }

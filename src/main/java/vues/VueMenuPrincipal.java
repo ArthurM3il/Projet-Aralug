@@ -1,14 +1,14 @@
 package vues;
 
 import controleurs.ControleurMenuPrincipal;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import t2s.son.LecteurTexte;
+import utils.LecteurMusique;
+import utils.LectureRecord;
 
 import java.awt.*;
 
@@ -20,13 +20,15 @@ public class VueMenuPrincipal {
 
     private double hauteurEcran;
 
-    private LecteurTexte lecteurTexte;
+    private StringBuilder stringBuilder;
+
 
     public VueMenuPrincipal(Stage stage) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
+        stringBuilder = new StringBuilder();
         Label label = new Label("Appuyer sur la touche espace pour choisir une musique");
-        lecteurTexte = new LecteurTexte();
+        LecteurMusique.sonMenu();
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
         if (stage.getScene() != null) {
@@ -36,8 +38,6 @@ public class VueMenuPrincipal {
     }
 
     public void afficherTexte(String texte) {
-        lecteurTexte.setTexte(texte);
-        lancerSynthese(lecteurTexte);
         Text text = new Text(texte);
         text.setFill(Color.YELLOW);
         text.setWrappingWidth(largeurEcran);
@@ -56,13 +56,17 @@ public class VueMenuPrincipal {
             if (event.getCode().equals(KeyCode.SPACE)) {
                 System.out.println("Vue menu principal changement vers selection musique");
                 ControleurMenuPrincipal.changerVue(stage);
+            } else if(event.getCode().equals(KeyCode.RIGHT) || event.getCode().equals(KeyCode.LEFT)) {
+                lancerSynthese();
             }
         });
     }
 
-    public void lancerSynthese(LecteurTexte lecteur){
-        new Thread(() -> {
-            lecteur.play();
-        }).start();
+
+
+
+    public void lancerSynthese(){
+        new Thread(LectureRecord::lectureRecords).start();
+        afficherTexte(LectureRecord.ecrireRecords());
     }
 }

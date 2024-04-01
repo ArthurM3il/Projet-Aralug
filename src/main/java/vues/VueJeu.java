@@ -1,6 +1,7 @@
 package vues;
 
 import controleurs.ControleurJeu;
+import elements.Difficulte;
 import elements.Musique;
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
@@ -74,21 +75,24 @@ public class VueJeu {
      */
     private void changerScene(Stage stage, Musique musique, int difficulte) {
         stage.getScene().setOnKeyReleased(event -> {
-            if (erreurCumulees >= difficulte) {
+            if (score < 0) {
+                score = 0;
+            } else if (erreurCumulees >= Difficulte.getNombreDifficulte(difficulte)) {
                 LecteurMusique.sonDefaite();
                 LecteurMusique.stopMusic();
-                ControleurJeu.changerVue(stage, score);
+                ControleurJeu.changerVue(stage, score, difficulte);
             } else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.RUNNING) {
                 beatCircle();
                 score += (int) calculScore(getDifference(), musique);
-                System.out.println("Difference : " + getDifference() + " Score : " + (int)calculScore(getDifference(), musique) + " Nombre d'erreur : " + erreurCumulees + " / " + difficulte);
+                System.out.println(score);
+                System.out.println("Difference : " + getDifference() + " Score : " + (int)calculScore(getDifference(), musique) + " Nombre d'erreur : " + erreurCumulees + " / " + Difficulte.getNombreDifficulte(difficulte));
             }else if (event.getCode().toString().equals("SPACE") && gameTimeline.getStatus() == Animation.Status.STOPPED){
                 System.out.println("Vue jeu changement vers score");
                 LecteurMusique.stopMusic();
-                ControleurJeu.changerVue(stage, score);
+                ControleurJeu.changerVue(stage, score, difficulte);
             } else if (event.getCode().equals(KeyCode.ESCAPE)) {
                 LecteurMusique.stopMusic();
-                ControleurJeu.changerVue(stage, score);
+                ControleurJeu.changerVue(stage, score, difficulte);
             }
         });
     }
@@ -173,15 +177,24 @@ public class VueJeu {
             return 10.0;
         }else {
             erreurCumulees++;
-            lancerErreur();
             double coefDirecteur = (-20/(battement-100));
             double ordonneeALorigine = (10 + (2000/(battement-100)));
-            return Math.abs(coefDirecteur*difference + ordonneeALorigine);
+            double score = coefDirecteur*difference + ordonneeALorigine;
+            if (score < 0) {
+                System.out.println("Tot");
+                lancerErreur("Tot");
+            } else {
+                System.out.println("Tard");
+                lancerErreur("Tard");
+            }
+            return Math.abs(score);
         }
     }
 
-    public void lancerErreur(){
-        new Thread(LecteurMusique::sonErreur).start();
+    public void lancerErreur(String totOuTard){
+        new Thread(() -> {
+            LecteurMusique.sonErreur(totOuTard);
+        }).start();
     }
 
     /**

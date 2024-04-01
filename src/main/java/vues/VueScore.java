@@ -1,15 +1,16 @@
 package vues;
 
 import controleurs.ControleurScore;
-import controleurs.ControleurSelectionMusique;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import t2s.son.LecteurTexte;
-import utils.LecteurMusique;
+
+import utils.EcrireRecord;
+import utils.LectureRecord;
+import utils.LectureScore;
 
 import java.awt.*;
 
@@ -22,21 +23,20 @@ public class VueScore {
 
     private double hauteurEcran;
 
-    private LecteurTexte lecteurTexte;
-    public VueScore(Stage stage, int score) {
+
+    public VueScore(Stage stage, int score, int difficulte) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
         label = new Label("Votre score est de " + score);
-        lecteurTexte = new LecteurTexte();
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
+        testerRecords(score, difficulte);
+        lancerSynthese(score);
         afficherTexte(label.getText());
         changerScene(stage);
     }
 
     public void afficherTexte(String texte) {
-        lecteurTexte.setTexte(texte);
-        lancerSynthese(lecteurTexte);
         Text text = new Text(texte);
         text.setFill(Color.YELLOW);
         double taillePolice = Math.min(largeurEcran, hauteurEcran) / 15; // Taille de police proportionnelle à la taille de l'écran
@@ -56,12 +56,20 @@ public class VueScore {
         });
     }
 
+    public void lancerSynthese(int score){
+        new Thread(() -> {
+            LectureScore.lireScore(score);
+        }).start();
+    }
+
+
+    private void testerRecords(int score, int difficulte) {
+        int[] records = LectureRecord.lireRecords();
+        if (score > records[difficulte]) {
+            EcrireRecord.ecrire(String.valueOf(score), difficulte + 1);
+        }
+    }
     public Pane getUI() {
         return ui;
-    }
-    public void lancerSynthese(LecteurTexte lecteur){
-        new Thread(() -> {
-            lecteur.play();
-        }).start();
     }
 }

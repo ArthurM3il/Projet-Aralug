@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import t2s.son.LecteurTexte;
+
 import utils.Utils;
 
 import java.awt.*;
@@ -27,24 +27,21 @@ public class VueSelectionDifficulte {
 
     private int difficulte;
 
-    private LecteurTexte lecteurTexte;
+
 
     public VueSelectionDifficulte(Stage stage, Musique musique) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
         texte = new Text("Difficulté facile");
-        lecteurTexte = new LecteurTexte();
-        lecteurTexte.setTexte("Sélectionnez la difficulté");
-        stage.setOnShown(event -> lancerSynthese(lecteurTexte));
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
+        difficulte = 0;
         changerScene(stage, musique);
         afficherTexte(texte.getText());
     }
 
     public void afficherTexte(String chaine) {
-        lecteurTexte.setTexte(chaine);
-        lancerSynthese(lecteurTexte);
+
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
         texte.setWrappingWidth(largeurEcran);
@@ -62,7 +59,7 @@ public class VueSelectionDifficulte {
         stage.getScene().setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
                 System.out.println("Vue selection difficulte changement vers jeu");
-                ControleurSelectionDifficulte.changerVue(stage, musique, Difficulte.getNombreDifficulte(difficulte));
+                ControleurSelectionDifficulte.changerVue(stage, musique, difficulte);
             } else if (event.getCode().equals(KeyCode.RIGHT)){
                 difficulte = Utils.changerIndex(Utils.DROITE, 3, difficulte);
                 afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
@@ -73,9 +70,4 @@ public class VueSelectionDifficulte {
         });
     }
 
-    public void lancerSynthese(LecteurTexte lecteur){
-        new Thread(() -> {
-            lecteur.play();
-        }).start();
-    }
 }

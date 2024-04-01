@@ -2,7 +2,7 @@ package elements;
 
 public enum Difficulte {
     FACILE("facile", Integer.MAX_VALUE),
-    MOYEN("moyen", 20  ),
+    MOYEN("moyen", 20),
     DIFFICILE("difficile" , 10);
 
     private final int nombreErreurCumuluees;

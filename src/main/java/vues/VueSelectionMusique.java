@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import t2s.son.LecteurTexte;
 import utils.Utils;
 
 import java.awt.*;
@@ -26,17 +25,12 @@ public class VueSelectionMusique {
 
     private int indexMenu;
 
-    private LecteurTexte lecteurTexte;
 
     public VueSelectionMusique(Stage stage) {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
         ui = new Pane();
 
-        lecteurTexte = new LecteurTexte();
-        lecteurTexte.setTexte("Sélectionnez une musique");
-        stage.setOnShown(event -> lancerSynthese(lecteurTexte));
-        lecteurTexte.play();
         ui.setStyle("-fx-background-color: black;");
         indexMenu = 0;
         ArrayList<Musique> musiques = new ArrayList<>();
@@ -54,8 +48,7 @@ public class VueSelectionMusique {
     }
 
     public void afficherTexte(String chaine) {
-        lecteurTexte.setTexte(chaine);
-        lancerSynthese(lecteurTexte);
+
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
         texte.setWrappingWidth(largeurEcran);
@@ -84,9 +77,4 @@ public class VueSelectionMusique {
         });
     }
 
-    public void lancerSynthese(LecteurTexte lecteur){
-        new Thread(() -> {
-            lecteur.play();
-        }).start();
-    }
 }

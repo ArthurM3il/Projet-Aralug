@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
-import t2s.son.LecteurTexte;
+
 
 import java.util.ArrayList;
 
@@ -69,11 +69,11 @@ public class Utils {
         if (indexMenu >= taille) {
             indexMenu = 0;
         } else if (indexMenu < 0) {
-            indexMenu = taille;
+            indexMenu = taille - 1;
         }
         return indexMenu;
     }
-
+/*
     public static LecteurTexte lireRegles() {
         String message = "Règles Lors du lancement du jeu vous devez appuyer sur espace en rythme sur les battements de la musique pour maximiser votre score.";
         LecteurTexte lecteur = new LecteurTexte();
@@ -87,5 +87,5 @@ public class Utils {
         lecteur.setTexte(message);
         return lecteur;
     }
-
+*/
 }

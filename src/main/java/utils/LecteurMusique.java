@@ -17,6 +17,8 @@ public class LecteurMusique {
 
     private static MediaPlayer metronomeClip;
 
+    private static MediaPlayer menuClip;
+
     public static void playMusic(double battements) {
             try {
                 sonMetronome(battements);
@@ -59,12 +61,11 @@ public class LecteurMusique {
 
             File victoireFile = new File("assets/effects/Victoire.wav");
             File defaiteFile = new File("assets/effects/Defaite.wav");
-            File erreurFile = new File("assets/effects/Erreur.wav");
             File metronomeFile = new File("assets/effects/Metronome.wav");
-            Media erreurMedia = new Media(erreurFile.toURI().toString());
-            erreurClip = new MediaPlayer(erreurMedia);
+
             Media metronomeMedia = new Media(metronomeFile.toURI().toString());
             metronomeClip = new MediaPlayer(metronomeMedia);
+
             AudioInputStream victoireStream = AudioSystem.getAudioInputStream(victoireFile);
             AudioInputStream defaiteStream = AudioSystem.getAudioInputStream(defaiteFile);
             victoireClip = AudioSystem.getClip();
@@ -77,7 +78,8 @@ public class LecteurMusique {
         }
     }
 
-    public static void sonErreur() {
+    public static void sonErreur(String totOuTard) {
+            erreurClip = new MediaPlayer(new Media(new File("assets/effects/Erreur" + totOuTard + ".wav").toURI().toString()));
             erreurClip.play();
             erreurClip.setOnEndOfMedia(() -> {
                 erreurClip.stop();
@@ -108,5 +110,13 @@ public class LecteurMusique {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void sonMenu() {
+        menuClip = new MediaPlayer(new Media(new File("assets/voices/EspacePourCommencer.wav").toURI().toString()));
+        menuClip.play();
+        menuClip.setOnEndOfMedia(() -> {
+            menuClip.stop();
+        });
     }
 }
