@@ -1,32 +1,21 @@
 package utils;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class EcrireRecord {
-    public static void ecrire(String record, int difficulte) {
-        String nomFichier = "records";
-
+    public static void ecrire(int record, int difficulte) {
         try {
-            // Ouvrir le fichier en mode lecture/écriture
-            RandomAccessFile fichier = new RandomAccessFile(nomFichier, "rw");
-
-            // Calculer la position de début de la ligne à écraser
-            long positionDebutLigne = 0;
-            for (int i = 0; i < difficulte - 1; i++) {
-                positionDebutLigne += fichier.readLine().length() + 1; // +1 pour le retour à la ligne
+            int[] records = LectureRecord.lireRecords();
+            records[difficulte - 1] = record;
+            // Écrire le contenu modifié dans le fichier
+            BufferedWriter ecrivain = new BufferedWriter(new FileWriter(String.valueOf(Paths.get("records.txt"))));
+            for (int i = 0 ; i < records.length-1 ; i++) {
+                ecrivain.write(records[i] + "\n");
             }
-
-            // Se positionner au début de la ligne à écraser
-            fichier.seek(positionDebutLigne);
-
-            // Écrire la nouvelle donnée
-            fichier.writeBytes(record);
-
-            // Fermer le fichier
-            fichier.close();
+            ecrivain.write(String.valueOf(records[records.length - 1]));
+            ecrivain.close();
 
             System.out.println("Donnée écrite avec succès sur la ligne " + difficulte);
         } catch (IOException e) {

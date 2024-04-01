@@ -12,9 +12,9 @@ import java.nio.file.Paths;
 
 public class LectureRecord {
 
-    private static int[] records = {0,0,0};
     public static int[] lireRecords() {
-        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("records"))) {
+        int[] records = new int[3];
+        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("records.txt"))) {
             String lectureLigne = bufferedReader.readLine();
             Integer numeroLigne = 0;
             do {
@@ -45,6 +45,7 @@ public class LectureRecord {
 
     public static void lectureRecords() {
         lireSonRecord();
+        int[] records = lireRecords();
         for (int i = 0 ; i < records.length ; i++) {
             LectureDifficulte.lireDifficulte(Difficulte.getNomDifficulte(i));
             LectureScore.lireScore(records[i]);
@@ -52,16 +53,13 @@ public class LectureRecord {
     }
 
     public static String ecrireRecords() {
-       StringBuilder stringBuilder = new StringBuilder();
+        int[] records = lireRecords();
+        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Vos records sont : ");
         for (int i = 0 ; i < records.length ; i++) {
             stringBuilder.append(Difficulte.getNomDifficulte(i));
             stringBuilder.append(" " + records[i] + " ");
         }
         return String.valueOf(stringBuilder);
-    }
-
-    public static int[] getRecords() {
-        return records;
     }
 }

@@ -66,7 +66,7 @@ public class VueScore {
     private void testerRecords(int score, int difficulte) {
         int[] records = LectureRecord.lireRecords();
         if (score > records[difficulte]) {
-            EcrireRecord.ecrire(String.valueOf(score), difficulte + 1);
+            EcrireRecord.ecrire(score, difficulte + 1);
         }
     }
     public Pane getUI() {
