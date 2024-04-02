@@ -8,15 +8,10 @@ import java.io.File;
 public class LectureDifficulte {
 
     public static void lireDifficulte(String difficulte) {
-        MediaPlayer clip = new MediaPlayer(new Media(new File("assets/voices/" + difficulte + ".wav").toURI().toString()));
+        MediaPlayer clip = new MediaPlayer(new Media(new File("assets/voices/Difficulte" + difficulte + ".wav").toURI().toString()));
         clip.setOnEndOfMedia(() -> {
             clip.stop();
         });
-        try {
-            clip.play();
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        clip.play();
     }
 }

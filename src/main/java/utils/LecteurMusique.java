@@ -17,7 +17,6 @@ public class LecteurMusique {
 
     private static MediaPlayer metronomeClip;
 
-    private static MediaPlayer menuClip;
 
     public static void playMusic(double battements) {
             try {
@@ -110,13 +109,5 @@ public class LecteurMusique {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static void sonMenu() {
-        menuClip = new MediaPlayer(new Media(new File("assets/voices/EspacePourCommencer.wav").toURI().toString()));
-        menuClip.play();
-        menuClip.setOnEndOfMedia(() -> {
-            menuClip.stop();
-        });
     }
 }

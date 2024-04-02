@@ -1,19 +1,28 @@
 package vues;
 
 import controleurs.ControleurMenuPrincipal;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import utils.LecteurMusique;
 import utils.LectureRecord;
+import utils.LectureSon;
+import utils.Utils;
 
-import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 
 public class VueMenuPrincipal {
-    private Pane ui;
+    private BorderPane ui;
     private Label label;
 
     private double largeurEcran;
@@ -22,51 +31,66 @@ public class VueMenuPrincipal {
 
     private StringBuilder stringBuilder;
 
+    private Scene scene;
+
+    private Stage stage; // a voir si tu l'utilise vraiment ;
+
+    private final Utils utils = new Utils();
+
 
     public VueMenuPrincipal(Stage stage) {
-        this.largeurEcran = stage.getWidth();
-        this.hauteurEcran = stage.getHeight();
+        Rectangle2D screenSize = utils.getScreenSize();
+        this.stage = stage;
+        this.largeurEcran = screenSize.getWidth();
+        this.hauteurEcran = screenSize.getHeight();
         stringBuilder = new StringBuilder();
-        Label label = new Label("Appuyer sur la touche espace pour choisir une musique");
-        LecteurMusique.sonMenu();
-        ui = new Pane();
+        label = new Label("Appuyer sur la touche espace pour choisir une musique");
+        LectureSon.sonMenu();
+        ui = new BorderPane();
         ui.setStyle("-fx-background-color: black;");
-        if (stage.getScene() != null) {
-            changerScene(stage);
+        ui.setCenter(label);
+        afficherTexte();
+        scene = new Scene(ui, largeurEcran, hauteurEcran);
+        stage.setScene(scene);
+        stage.setTitle("Aralug");
+        changerScene(stage);
+        stage.show();
+    }
+
+    private void afficherTexte() {
+        label.setTextFill(Color.YELLOW);
+        label.setWrapText(true);
+        try {
+            label.setFont(Font.loadFont(new FileInputStream("assets/fonts/Luciole-Bold.ttf"), largeurEcran*0.07));
+        } catch (FileNotFoundException e) {
+            label.setFont(Font.getDefault());
         }
-        afficherTexte(label.getText());
     }
-
-    public void afficherTexte(String texte) {
-        Text text = new Text(texte);
-        text.setFill(Color.YELLOW);
-        text.setWrappingWidth(largeurEcran);
-        text.setFont(Font.loadFont("file:assets/fonts/Luciole-Bold.ttf",largeurEcran*0.07));
-        text.setX((largeurEcran - text.getLayoutBounds().getWidth()) / 2);
-        text.setY((hauteurEcran - text.getLayoutBounds().getHeight()) / 2);
-        ui.getChildren().add(text);
-    }
-
     public Pane getUI() {
         return ui;
     }
 
     private void changerScene(Stage stage) {
-        stage.getScene().setOnKeyReleased(event -> {
+        scene.setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.SPACE)) {
                 System.out.println("Vue menu principal changement vers selection musique");
                 ControleurMenuPrincipal.changerVue(stage);
             } else if(event.getCode().equals(KeyCode.RIGHT) || event.getCode().equals(KeyCode.LEFT)) {
                 lancerSynthese();
+            } else if(event.getCode().equals(KeyCode.ENTER)) {
+                LectureSon.lireRegles();
+            } else {
+                LectureSon.lireNavigation();
             }
         });
     }
 
-
-
-
     public void lancerSynthese(){
         new Thread(LectureRecord::lectureRecords).start();
-        afficherTexte(LectureRecord.ecrireRecords());
+        label.setText(LectureRecord.ecrireRecords());
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 }

@@ -1,7 +1,7 @@
 package elements;
 
 public enum Musique {
-    DP_INSTANTCRUSH("Daft Punk - Instant Crush",110,"assets/musics/DaftPunkInstantCrush.wav"),
+    DP_INSTANTCRUSH("Daft Punk - Instant Crush",110,"assets/musics/DaftPunkInstantCrush.aiff"),
     JUL_LAZONE("Jul - J'fais plaisir à la zone",133,"assets/musics/JulLaZone.wav"),
     SLIMANE_CHEZTOI("Slimane feat Claudio Capéo - Chez toi", 115,"assets/musics/SlimaneChezToi.wav"),
     LUCENZO_KUDURO("Lucenzo feat Don Omar - Danza Kuduro", 130, "assets/musics/LucenzoDanzaKuduro.wav"),

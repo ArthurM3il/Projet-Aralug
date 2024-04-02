@@ -11,6 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import utils.LectureDifficulte;
+import utils.LectureRecord;
+import utils.LectureSon;
 import utils.Utils;
 
 import java.awt.*;
@@ -36,6 +39,8 @@ public class VueSelectionDifficulte {
         ui = new Pane();
         ui.setStyle("-fx-background-color: black;");
         difficulte = 0;
+        lancerSyntheseDifficulte();
+        //lancerSyntheseNomDifficulte();
         changerScene(stage, musique);
         afficherTexte(texte.getText());
     }
@@ -62,12 +67,19 @@ public class VueSelectionDifficulte {
                 ControleurSelectionDifficulte.changerVue(stage, musique, difficulte);
             } else if (event.getCode().equals(KeyCode.RIGHT)){
                 difficulte = Utils.changerIndex(Utils.DROITE, 3, difficulte);
+                LectureDifficulte.lireDifficulte(Difficulte.getNomDifficulte(difficulte));
                 afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
             } else if (event.getCode().equals(KeyCode.LEFT)) {
                 difficulte = Utils.changerIndex(Utils.GAUCHE, 3, difficulte);
+                LectureDifficulte.lireDifficulte(Difficulte.getNomDifficulte(difficulte));
                 afficherTexte("Difficulté " + Difficulte.getNomDifficulte(difficulte));
             }
         });
     }
 
+    public void lancerSyntheseDifficulte(){
+        new Thread(() -> {
+            LectureSon.choixDifficulte(difficulte);
+        }).start();
+    }
 }

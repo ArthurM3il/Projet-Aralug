@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import utils.EcrireRecord;
 import utils.LectureRecord;
 import utils.LectureScore;
+import utils.LectureSon;
 
 import java.awt.*;
 
@@ -58,7 +59,7 @@ public class VueScore {
 
     public void lancerSynthese(int score){
         new Thread(() -> {
-            LectureScore.lireScore(score);
+            LectureSon.votreScoreEstDe(score);
         }).start();
     }
 

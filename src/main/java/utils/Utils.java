@@ -73,19 +73,4 @@ public class Utils {
         }
         return indexMenu;
     }
-/*
-    public static LecteurTexte lireRegles() {
-        String message = "Règles Lors du lancement du jeu vous devez appuyer sur espace en rythme sur les battements de la musique pour maximiser votre score.";
-        LecteurTexte lecteur = new LecteurTexte();
-        lecteur.setTexte(message);
-        return lecteur;
-    }
-
-    public static LecteurTexte lireNavigation() {
-        String message = "Pour naviguer dans les écrans vous devez appuyer sur espace pour aller à l'écran suivant ou appuyer sur les flèches directionnelles droite et gauche pour choisir la musique et la difficulté";
-        LecteurTexte lecteur = new LecteurTexte();
-        lecteur.setTexte(message);
-        return lecteur;
-    }
-*/
 }

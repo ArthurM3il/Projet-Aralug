@@ -48,6 +48,11 @@ public class LectureRecord {
         int[] records = lireRecords();
         for (int i = 0 ; i < records.length ; i++) {
             LectureDifficulte.lireDifficulte(Difficulte.getNomDifficulte(i));
+            try {
+                Thread.sleep(1700);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             LectureScore.lireScore(records[i]);
         }
     }
@@ -55,7 +60,7 @@ public class LectureRecord {
     public static String ecrireRecords() {
         int[] records = lireRecords();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Vos records sont : ");
+        //stringBuilder.append("Vos records sont : \n");
         for (int i = 0 ; i < records.length ; i++) {
             stringBuilder.append(Difficulte.getNomDifficulte(i));
             stringBuilder.append(" " + records[i] + " ");

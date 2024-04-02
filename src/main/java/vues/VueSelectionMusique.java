@@ -2,6 +2,7 @@ package vues;
 
 import controleurs.ControleurMenuPrincipal;
 import controleurs.ControleurSelectionMusique;
+import elements.Difficulte;
 import elements.Musique;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -9,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.LectureDifficulte;
+import utils.LectureSon;
 import utils.Utils;
 
 import java.awt.*;
@@ -30,25 +33,24 @@ public class VueSelectionMusique {
         this.largeurEcran = stage.getWidth();
         this.hauteurEcran = stage.getHeight();
         ui = new Pane();
-
         ui.setStyle("-fx-background-color: black;");
         indexMenu = 0;
+        lancerSynthese();
         ArrayList<Musique> musiques = new ArrayList<>();
         musiques.add(Musique.DP_INSTANTCRUSH);
         musiques.add(Musique.JUL_LAZONE);
         musiques.add(Musique.SLIMANE_CHEZTOI);
-        musiques.add(Musique.LORIE_MEILLEUREAMIE);
-        musiques.add(Musique.LOUANE_SECRET);
         musiques.add(Musique.LUCENZO_KUDURO);
         musiques.add(Musique.SOOLKING_CASANOVA);
         musiques.add(Musique.SOPRANO_ENFEU);
+        musiques.add(Musique.LORIE_MEILLEUREAMIE);
+        musiques.add(Musique.LOUANE_SECRET);
         texte = new Text(musiques.get(0).getTitre());
         changerScene(stage, musiques.get(indexMenu), musiques);
         afficherTexte(texte.getText());
     }
 
     public void afficherTexte(String chaine) {
-
         texte.setText(chaine);
         texte.setFill(Color.YELLOW);
         texte.setWrappingWidth(largeurEcran);
@@ -69,12 +71,17 @@ public class VueSelectionMusique {
                 ControleurSelectionMusique.changerVue(stage, musiques.get(indexMenu));
             } else if (event.getCode().equals(KeyCode.RIGHT)) {
                 indexMenu = Utils.changerIndex(Utils.DROITE, musiques.size(), indexMenu);
+                LectureSon.titreMusique(indexMenu);
                 afficherTexte(musiques.get(indexMenu).getTitre());
             } else if (event.getCode().equals(KeyCode.LEFT)) {
                 indexMenu = Utils.changerIndex(Utils.GAUCHE, musiques.size(), indexMenu);
+                LectureSon.titreMusique(indexMenu);
                 afficherTexte(musiques.get(indexMenu).getTitre());
             }
         });
     }
 
+    public void lancerSynthese(){
+        new Thread(LectureSon::choixMusique).start();
+    }
 }
