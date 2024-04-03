@@ -1,7 +1,7 @@
 # Documentation du fonctionnement du jeux
 
 ## Introduction :
-Aralug est un jeu de rythme imaginé et développer en Java par MORENO Arthur, BOYER Lucas, ONCINO Alexandre et PERLIN Gabin sous l'IDE IntelliJ. Ce jeu est adapté aux personnes atteintes de déficiences visuelles, cela veut dire que l'interface graphique a été réalisé de sorte qu'elle soit sobre et facilement visible en utilisant une police ainsi que des couleurs les plus adapté possible mais également d'implémenté une synthèse vocale.
+Aralug est un jeu de rythme imaginé et développé en Java par MORENO Arthur, BOYER Lucas, ONCINO Alexandre et PERLIN Gabin. Ce jeu est adapté aux personnes atteintes de déficiences visuelles, c'est pour cela que l'interface graphique a été réalisé de sorte qu'elle soit sobre et facilement visible en utilisant une police ainsi que des couleurs les plus adaptées possible mais également d'implémenter une synthèse vocale.
 
 ## Qu'est ce que le BPM ?
 
@@ -11,9 +11,13 @@ C'est en terme technique "la fréquence de pulsation", comme le battement de vot
 
 ## Matériel nécessaire : 
 Le plus optimal afin de jouer est d'utiliser un casque audio ou des écouteurs. Cependant, rien ne vous empêche de faire profiter tout le monde en jouant avec un haut-parleur !
-De plus, le jeu n'est deployable uniquement sur ordinateur Windows afin de profiter pleinement de la synthèse vocale.
+De plus, le jeu n'est deployable uniquement sur ordinateur.
 ## Règles du jeu : 
-Le but du jeu est de réussir à se caler sur le bpm d'une musique afin d'avoir un score le plus élevé possible. Afin de réaliser cela, il faudra pouvoir choisir une musique au lancement du jeu à l'aide des touches directionnelles du clavier (droite et gauche) mais également par la suite un niveaux de difficulté. Une fois la musique lancée, pour se caler sur le bpm de la musique, il suffira d'appuyer sur la barre espace du clavier afin de faire grossir le cercle.  
+Le but du jeu est de réussir à appuyer sur la touche espace du claiver en même temps que le bpm de la musique afin d'avoir un score le plus élevé possible. 
+## Navigation :
+Lorsque vous lancer le jeu, vous pouvez appuyer sur la touche espace pour aller à l'écran suivant.
+Pour changer une musique et la difficulté, appuyer sur les touches flèches directionnelles droite et gauche. Une fois que vous êtes sur la bonne musique ou difficulté, appuyez sur espace.
+Quand vous êtes dans le menu principal, vous pourrez appuyer sur les touches flèches directionnelles droite et gauche pour voir et entendre vos records suivant les trois niveaux de difficulté.
 
 ## Description des différents niveaux de difficultés :   
 - Facile : Le niveau facile permet de pouvoir jouer jusqu'à la fin de la musique, un système de point à été mis en place selon si l'appuie sur la barre espace est plus ou moins proche du bpm exacte de la musique lancée. Une fois la musique terminée, le score sera affiché mais aussi annoncé vocalement pour en informer le joueur.    
